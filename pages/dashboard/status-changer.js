@@ -14,18 +14,18 @@ const StatusChanger = () => {
   useEffect(() => {
     if (!fetchRef.current) {
       fetchRef.current = true
-
       fetchStatuses()
     }
-  }, [selectedGuild])
+  }, [selectedGuild, fetchStatuses]) // Include fetchStatuses in the dependency array
 
-  const fetchStatuses = async () => {
+ const fetchStatuses = async () => {
     const { data } = await axios({
       url: '/api/statuses',
       method: 'GET',
     }).catch((err) => {
       console.error(err)
     })
+
 
     setStatuses(
       data.statuses.map((status) => {

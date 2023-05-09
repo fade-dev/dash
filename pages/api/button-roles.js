@@ -1,9 +1,8 @@
 import axios from 'axios'
-
 import mongoConnect from '@util/mongo-connect'
 import buttonRoleSchema from '@schemas/button-role.schema'
 
-const GET = async (req, res) => {
+const buttonRoles = async (req, res) => {
   const { guildId } = req.query
 
   if (!guildId) {
@@ -68,40 +67,4 @@ const GET = async (req, res) => {
   })
 }
 
-const POST = async (req, res) => {
-  const { guildId, ...body } = req.body
-
-  if (!guildId || !body.channelId || !body.text) {
-    return res.status(400).json({
-      error: 'Please provide "guildId", "channelId", and "text" fields.',
-    })
-  }
-
-  await mongoConnect()
-
-  const item = await buttonRoleSchema.findOneAndUpdate(
-    {
-      _id: guildId,
-    },
-    {
-      _id: guildId,
-      ...body,
-    },
-    {
-      new: true,
-      upsert: true,
-    }
-  )
-
-  res.status(200).json({ id: item._id })
-}
-
-export default async (req, res) => {
-  if (req.method === 'GET') {
-    await GET(req, res)
-  } else if (req.method === 'POST') {
-    await POST(req, res)
-  } else {
-    res.status(405).end()
-  }
-}
+export default buttonRoles;

@@ -16,10 +16,11 @@ const GET = async (req, res) => {
   res.status(200).json(guilds.map((guild) => guild._id))
 }
 
-export default async (req, res) => {
+const guildsWithBot= async (req, res) => {
   if (req.method === 'GET') {
     await GET(req, res)
   } else {
     res.status(405).end()
   }
 }
+export default guildsWithBot;

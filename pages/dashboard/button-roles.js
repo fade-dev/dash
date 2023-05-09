@@ -5,6 +5,12 @@ import secure from '@util/secure'
 import Guilds from '@components/Guilds'
 import axios from 'axios'
 
+function ButtonRoles() {
+  const [channels, setChannels] = useState([])
+  const [selectedGuild, setSelectedGuild] = useState(null)
+
+}
+
 const ButtonRoles = () => {
   const [selectedGuild, setSelectedGuild] = useState()
   const [availableChannels, setAvailableChannels] = useState([])
@@ -16,13 +22,13 @@ const ButtonRoles = () => {
   const [startingValues, setStartingValues] = useState([])
   const fetchChannelRef = useRef(false)
 
+  
   useEffect(() => {
-    if (selectedGuild && !fetchChannelRef.current) {
-      fetchChannelRef.current = true
-
+    if (selectedGuild) {
       fetchChannels()
     }
-  }, [selectedGuild])
+  }, [selectedGuild, fetchChannels])
+}
 
   const fetchChannels = async () => {
     const result = await axios({
@@ -316,7 +322,7 @@ const ButtonRoles = () => {
       </Guilds>
     </div>
   )
-}
+
 
 export default ButtonRoles
 
