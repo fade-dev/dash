@@ -47,7 +47,7 @@ const DELETE = async (req, res) => {
   res.status(200).json({ id })
 }
 
-const statuses = async (req, res) => {
+export default async (req, res) => {
   if (req.method === 'GET') {
     await GET(req, res)
   } else if (req.method === 'POST') {
@@ -58,4 +58,3 @@ const statuses = async (req, res) => {
     res.status(405).end()
   }
 }
-export default statuses;
