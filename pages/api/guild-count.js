@@ -11,11 +11,10 @@ const GET = async (req, res) => {
   })
 }
 
-const buttonRoles = async (req, res) => {
+export default async (req, res) => {
   if (req.method === 'GET') {
     await GET(req, res)
   } else {
     res.status(405).end()
   }
 }
-export default buttonRoles;
